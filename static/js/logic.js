@@ -41,9 +41,25 @@ mapbox.pirates
 mapbox.emerald
 mapbox.high-contrast */
 
-//  Add a marker to the map for Los Angeles, California.
-let marker = L.marker([34.0522, -118.2437]).addTo(map);
 
+// Get data from cities.js
+let cityData = cities;
+
+// Loop through the cities array and create one marker for each city.
+cityData.forEach(function(city) {
+  console.log(city)
+  //L.marker(city.location)
+  L.circleMarker(city.location, {
+    radius: city.population/200000,
+    color: "white",
+    fillColor: "blue",
+    weight: 4
+  })
+  .bindPopup("<h2>" + city.city + ", " + city.state + "</h2> <hr> <h3>Population " + city.population + "</h3>")
+.addTo(map);
+});
+
+/*
 // Add a circle to the map
 L.circle([34.0522, -118.2437], {
   radius: 100000, // meter radius
@@ -57,4 +73,4 @@ L.circleMarker([40.7142, -74.0059], {
   color: "white",
   fillColor: "blue"
 
-}).addTo(map);
+}).addTo(map); */
