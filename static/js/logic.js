@@ -2,7 +2,7 @@
 console.log("working");
 
 // Create the map object with a center and zoom level.
-let map = L.map('mapid').setView([34.0522, -118.2437], 5);
+let map = L.map('mapid').setView([37.5, -122.5], 10);
 // setView method sets the coordinates and the level of zoom
 
 
@@ -15,7 +15,7 @@ let map = L.map("mapid", {
   }); */
 
 // We create the tile layer that will be the background of our map.
-let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/navigation-guidance-day-v4/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
     accessToken: API_KEY
@@ -86,4 +86,93 @@ let line = [
 // Create a polyline using the line coordinates and make the line red.
 L.polyline(line, {
   color: "red"
+}).addTo(map);
+
+
+/* A GeoJSON geometry object is where the type member's value is one of 
+the following strings: Point, MultiPoint, LineString, MultiLineString, 
+Polygon, MultiPolygon, or GeometryCollection. */
+
+/* Point has a single set of coordinates, like when we mapped a single marker to the map.
+
+"geometry":{
+  "type":"Point",
+  "coordinates": [-118.4, 33.9]
+  }
+
+MultiPoint is an array of point coordinates, like when we mapped multiple cities with their population to a map.
+
+"geometry":{
+  "type":"MultiPoint",
+  "coordinates": [-118.4, 33.9], [-118.5, 34.0]
+  }
+
+LineString has an array of Point coordinates, like when we mapped the airline route from LAX to SFO.
+
+"geometry":{
+  "type":"LineString",
+  "coordinates": [[-118.4, 33.9],[-122.4, 37.6]]
+  }
+
+MultiLineString are an array of LineString coordinates, like when we mapped the LAX-SFO-SLC-SEA airline route.
+
+"geometry":{
+  "type":"MultiLineString",
+  "coordinates":
+     [[-118.4, 33.9],[-106.4, 31.8]],
+     [[-118.4, 33.9],[-123.2, 44.1]]
+  }
+
+Polygon has an array of LineString coordinates. We'll map polygons later in this module.
+
+"geometry": {
+   "type": "Polygon",
+    "coordinates":
+   [
+    [ [ -122.446, 37.861 ], [ -122.438, 37.868 ], [ -122.430, 37.872 ] ]
+   ]}
+
+
+MultiPolygon has an array of polygon coordinates. We'll map multiple polygons later in this module.
+
+"geometry": {
+   "type": "MultiPolygon",
+   "coordinates": [
+    [ [ -122.446, 37.861 ], [ -122.438, 37.868 ], [ -122.430, 37.872 ] ],
+    [ [ -122.378, 37.826 ], [ -122.377, 37.830 ], [ -122.369, 37.832 ] ]
+]} */
+
+// Add GeoJSON data.
+let sanFranAirport =
+{"type":"FeatureCollection","features":[{
+    "type":"Feature",
+    "properties":{
+        "id":"3469",
+        "name":"San Francisco International Airport",
+        "city":"San Francisco",
+        "country":"United States",
+        "faa":"SFO",
+        "icao":"KSFO",
+        "alt":"13",
+        "tz-offset":"-8",
+        "dst":"A",
+        "tz":"America/Los_Angeles"},
+        "geometry":{
+            "type":"Point",
+            "coordinates":[-122.375,37.61899948120117]}} //coordinates must be in reverse order as per the GeoJSON stander, ie. long, lat
+]};
+
+// Create the map object with center at the San Francisco airport.
+
+//L.geoJSON(geojsonFeature).addTo(map);
+
+// Grabbing our GeoJSON data.
+L.geoJson(sanFranAirport, {
+  // We turn each feature into a marker on the map.
+  pointToLayer: function(feature, latlng) {
+    console.log(feature);
+    return L.marker(latlng)
+    .bindPopup("<h2>" + feature.properties.name + "</h2> <hr> <h3>" +  feature.properties.city + ", " + feature.properties.country +  "</h3>");
+  }
+
 }).addTo(map);
