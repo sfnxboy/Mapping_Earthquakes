@@ -47,18 +47,9 @@ let baseMaps = {
   light: light,
   "Satellite Streets": satelliteStreets
 };
-// Then we add our 'streets' tile layer to the map.
 
-// Create the map object with center, zoom level and default layer.
-let map = L.map('mapid', {
-  center: [39.5, -98.5],
-  zoom: 3,
-  layers: [satelliteStreets]
-})
-//satelliteStreets.addTo(map);
 
-// Pass our map layers into our layers control and add the layers control to the map.
-L.control.layers(baseMaps).addTo(map); 
+
 
 
 /* To change the map's style, change the map id using the list of Mapbox ids below:
@@ -77,7 +68,7 @@ mapbox.pirates
 mapbox.emerald
 mapbox.high-contrast */
 
-
+/*
 // Get data from cities.js
 let cityData = cities;
 
@@ -95,7 +86,7 @@ cityData.forEach(function(city) {
 .addTo(map);
 });
 
-/*
+
 // Add a circle to the map
 L.circle([34.0522, -118.2437], {
   radius: 100000, // meter radius
@@ -118,11 +109,11 @@ let line = [
   [40.7899, -111.9791],
   [47.4502, -122.3088]
 ];
-
+/*
 // Create a polyline using the line coordinates and make the line red.
 L.polyline(line, {
   color: "red"
-}).addTo(map);
+}).addTo(map); */
 
 
 /* A GeoJSON geometry object is where the type member's value is one of 
@@ -201,7 +192,7 @@ let sanFranAirport =
 // Create the map object with center at the San Francisco airport.
 
 //L.geoJSON(geojsonFeature).addTo(map);
-
+/*
 // Grabbing our GeoJSON data.
 L.geoJson(sanFranAirport, {
   // We turn each feature into a marker on the map.
@@ -212,7 +203,7 @@ L.geoJson(sanFranAirport, {
   }
 
 }).addTo(map);
-
+*/
 
 // Accessing the airport GeoJSON URL
 let airportData = "https://raw.githubusercontent.com/sfnxboy/Mapping_Earthquakes/main/majorAirports.json";
@@ -324,5 +315,27 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
     onEachFeature: function(feature, layer) {
       layer.bindPopup("Magnitude: " + feature.properties.mag + "<br>Location: " + feature.properties.place);
     }
-  }).addTo(map);
+  }).addTo(earthquakes);
+
+  earthquakes.addTo(map);
 });
+
+let earthquakes = new L.layerGroup();
+
+// We define an object that contains the overlays.
+// This overlay will be visible all the time.
+let overlays = {
+  Earthquakes: earthquakes
+};
+
+
+// Create the map object with center, zoom level and default layer.
+let map = L.map('mapid', {
+  center: [39.5, -98.5],
+  zoom: 3,
+  layers: [satelliteStreets]
+})
+
+// Then we add a control to the map that will allow the user to change
+// which layers are visible.
+L.control.layers(baseMaps, overlays).addTo(map);
