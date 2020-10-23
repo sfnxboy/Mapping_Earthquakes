@@ -1,6 +1,7 @@
 # Mapping Earthquakes
 
 **Tools Used**
+
 JavaScript, HTML, CSS
 
 ## Overview
