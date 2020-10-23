@@ -13,6 +13,7 @@ Using my knowledge of JavaScript, and the D3.js library, I will traverse and ret
 
 ## Plotting GeoJSON Data
 
+![image](https://user-images.githubusercontent.com/68082808/97032751-4c70b380-1530-11eb-8cf8-51f765a3ee8a.png)
  
 There is a lot going on here, so let’s slow down here.
 On line 226, we initialize a variable called torontoData in our JavaScript file, and we assign to it a link to a GeoJSON file that contains the all of the geographic features of Toronto’s neighborhoods. Check out the link for a more in depth view of what to expect in a GeoJSON file!
