@@ -13,16 +13,16 @@ Using my knowledge of JavaScript, and the D3.js library, I will traverse and ret
 
 ## Plotting GeoJSON Data
 
-![image](https://user-images.githubusercontent.com/68082808/97032751-4c70b380-1530-11eb-8cf8-51f765a3ee8a.png)
+![image](https://user-images.githubusercontent.com/68082808/97032977-a07b9800-1530-11eb-8aab-cf38076c1b7e.png)
  
 There is a lot going on here, so let’s slow down here.
-On line 226, we initialize a variable called torontoData in our JavaScript file, and we assign to it a link to a GeoJSON file that contains the all of the geographic features of Toronto’s neighborhoods. Check out the link for a more in depth view of what to expect in a GeoJSON file!
+On line 233, we initialize a variable called torontoData in our JavaScript file, and we assign to it a link to a GeoJSON file that contains the all of the geographic features of Toronto’s neighborhoods. Check out the link for a more in depth view of what to expect in a GeoJSON file!
 
 https://raw.githubusercontent.com/sfnxboy/Mapping_Earthquakes/main/torontoNeighborhoods.json
 
 In the JSON data, we can see that the geometry type is “Polygon” . To form a polygon, the coordinates have to be an array of linear ring (LinearRing) coordinate arrays. A LinearRing is a LineString with at least four or more sets of coordinates, where the starting and end points have the same coordinates.
 
-The d3.json() function is used to fetch the JSON file. GeiJSON objects are added to the map through a GeoJSON layer using the Leaflet.js library. To create a layer and add it to a map, we can use the following code:
+The d3.json() function is used to fetch the JSON file on line 235. GeoJSON objects are added to the map through a GeoJSON layer using the Leaflet.js library. To create a layer and add it to a map, we can use the following code:
 ```
 L.geoJSON(geojsonFeature).addTo(map);
 ```
