@@ -230,6 +230,19 @@ let myStyle = {
   weight: 2
 };
 
+let torontoHoods = "https://raw.githubusercontent.com/sfnxboy/Mapping_Earthquakes/main/torontoNeighborhoods.json";
+
+d3.json(torontoHoods).then(function(data) {
+  console.log(data);
+  L.geoJson(data, {
+    style: myStyle,
+    onEachFeature: function(feature, layer) {
+      console.log(feature);
+      layer.bindPopup("<h2> Neighborhood: " + feature.properties.AREA_NAME + "</h2>")
+    }
+  }).addTo(map);
+});
+
 /*
 // Grabbing our GeoJSON data.
 d3.json(torontoData).then(function(data) {
@@ -244,18 +257,6 @@ L.geoJson(data, {
 }).addTo(map);
 }); */
 
-let torontoHoods = "https://raw.githubusercontent.com/sfnxboy/Mapping_Earthquakes/main/torontoNeighborhoods.json";
-
-d3.json(torontoHoods).then(function(data) {
-  console.log(data);
-  L.geoJson(data, {
-    style: myStyle,
-    onEachFeature: function(feature, layer) {
-      console.log(feature);
-      layer.bindPopup("<h2> Neighborhood: " + feature.properties.AREA_NAME + "</h2>")
-    }
-  }).addTo(map);
-});
 
 // This function determines the radius of the earthquake marker based on its magnitude.
 // Earthquakes with a magnitude of 0 will be plotted with a radius of 1.
