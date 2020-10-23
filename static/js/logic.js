@@ -209,6 +209,22 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geoj
     if (magnitude > 6) {
       return "#DD0E20";
     }
+    if (magnitude > 5) {
+      return "#ea2c2c";
+    }
+    if (magnitude > 4) {
+      return "#ea822c";
+    }
+    if (magnitude > 3) {
+      return "#ee9c00";
+    }
+    if (magnitude > 2) {
+      return "#eecc00";
+    }
+    if (magnitude > 1) {
+      return "#d4ee00";
+    }
+    return "#98ee00";
   }
   
   // This function determines the radius of the earthquake marker based on its magnitude.
@@ -222,7 +238,7 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geoj
 
   // Creating a GeoJSON layer with the retrieved data that adds a circle to the map 
   // sets the style of the circle, and displays the magnitude and location of the earthquake
-  //  after the marker has been created and styled.
+  // after the marker has been created and styled.
   L.geoJson(data, {
     pointToLayer: function(feature, latlng) {
       console.log(data);
