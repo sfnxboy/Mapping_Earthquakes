@@ -1,4 +1,4 @@
-#Mapping Earthquakes
+# Mapping Earthquakes
 
 **Tools Used**
 JavaScript, HTML, CSS
